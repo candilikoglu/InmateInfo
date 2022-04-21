@@ -1,24 +1,24 @@
-{% extends "base.html" %} {% block title %} Login {% endblock %} {% block content %}
-<form method="POST">
-    <h3 align="center">Log In</h3>
+{% extends "baseforlogin.html" %} {% block title %} Login {% endblock %} {% block content %}
+<form method="POST" action='http://127.0.0.1:5000/login'>
+    <h3 align="center" padding-top="40px">Log In</h3>
     <div class="form-group">
-      <label for="email">Email Address</label>
+      <label for="Username">Username</label>
       <input
-        type="email"
+        type="Text"
         class="form-control"
-        id="email"
-        name="email"
-        placeholder="Enter email"
+        id="Username"
+        name="Username"
+        placeholder="Enter Username"
       />
     </div>
     <div class="form-group">
-      <label for="password">Password</label>
+      <label for="Password">Password</label>
       <input
-        type="password"
+        type="Password"
         class="form-control"
-        id="password"
-        name="password"
-        placeholder="Enter password"
+        id="Password"
+        name="Password"
+        placeholder="Enter Password"
       />
     </div>
     <br />

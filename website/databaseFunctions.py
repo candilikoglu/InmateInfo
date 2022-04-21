@@ -4,6 +4,8 @@ import os.path
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 db_path = os.path.join(BASE_DIR, "inmate_database.db")
 
+navbardict = {}
+
 def query_inmate_information():
     connie = sqlite3.connect(db_path)
     c = connie.cursor()
@@ -34,10 +36,23 @@ def check_if_ID_exists(ID, table):
     #print(table)
     connie = sqlite3.connect(db_path)
     c = connie.cursor()
-    c.execute("SELECT "+ID+" FROM "+table+" WHERE InmateID = "+ID+"")
+    c.execute('SELECT '+ID+' FROM '+table+' WHERE InmateID = '+ID+'')
     result = c.fetchall()
     #print(result)
     if len(result) > 0:
+        return True
+    else:
+        return False
+    
+def check_if_attribute_exists(table, username, password):
+    connie = sqlite3.connect(db_path)
+    c = connie.cursor()
+    # c.execute('SELECT * FROM '+table+' WHERE Username ='+username+' AND Password ='+password+'')
+    c.execute("SELECT * FROM "+table+" WHERE Username=? AND Password=?", (username, password))
+    result = c.fetchall()
+    print('THIS IS THE RESULT', result)
+    if len(result) > 0:
+        navbardict['occupation'] = table
         return True
     else:
         return False
