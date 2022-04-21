@@ -1,16 +1,41 @@
 from flask import Blueprint, render_template, request, flash
+from website import databaseFunctions
 
 auth = Blueprint('auth', __name__)
 
+JAILOR = 'Jailor'
+GUARD = 'Guard'
+ADMIN = 'Admin'
+
+@auth.route('/')
 @auth.route('/login', methods=['POST', 'GET'])
 def login():
-    data = request.form
-    print(data)
+    if request.method == 'POST':
+        login_information = (
+            request.form['Username'],
+            request.form['Password']
+        )
+        if len(request.form['Username']) <= 0:
+            flash('Please enter username', category='error')
+        elif len(request.form['Password']) <=0:
+            flash('Please enter password', category='error')
+        elif databaseFunctions.check_if_attribute_exists(JAILOR, login_information[0], login_information[1]):        
+            return render_template('home.html', occupation=JAILOR)
+        elif databaseFunctions.check_if_attribute_exists(GUARD, login_information[0], login_information[1]):
+            return render_template('home.html', occupation=GUARD)
+        elif databaseFunctions.check_if_attribute_exists(ADMIN, login_information[0], login_information[1]):
+            return render_template('home.html', occupation= ADMIN)
+        else:
+            flash('Login information is incorrect', category='error')
+    
     return render_template('login.html')
+
 
 @auth.route('/logout')
 def logout():
-    return "<h1>logout</h1>"
+    if 'occupation' in databaseFunctions.navbardict:
+        del databaseFunctions.navbardict['occupation']
+    return render_template('login.html')
 
 @auth.route('/createUser', methods=['POST', 'GET'])
 def createUser():
@@ -30,5 +55,6 @@ def createUser():
             flash('Full name must be greater than 4 characters', category = 'error')
         else:
             flash('Account created successfully', category='success')
-            
-    return render_template('createUser.html')
+    
+    occupation = databaseFunctions.navbardict['occupation']       
+    return render_template('createUser.html', occupation=occupation)

@@ -5,31 +5,29 @@ from website import databaseFunctions
 
 views = Blueprint('views', __name__)
 
-
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-db_path = os.path.join(BASE_DIR, "inmate_database.db")
-
 # this function will run whenever we go to '/'
-@views.route('/')
+@views.route('/home')
 def home():
-    # return "<h1>hello</h1>" 
-    return render_template('home.html')
+    occupation = databaseFunctions.navbardict['occupation'] 
+    return render_template('home.html', occupation = occupation)
 
 
 @views.route('/inmate', methods=['POST', 'GET'])
 def goToInmate():
     inmate_info = databaseFunctions.query_inmate_information()
-    
-    return render_template('inmate.html', inmate_info = inmate_info)
+    occupation = databaseFunctions.navbardict['occupation']
+    return render_template('inmate.html', inmate_info = inmate_info, occupation=occupation)
 
 
 @views.route('/addInmate', methods=['POST', 'GET'])
 def addInmate():
     FIRID = databaseFunctions.get_FIRID()
     if request.method == 'GET':
-        return render_template('addInmate.html', FIRID = FIRID)
+        occupation = databaseFunctions.navbardict['occupation']
+        return render_template('addInmate.html', FIRID = FIRID, occupation = occupation)
     
     elif  request.method == 'POST':
+        occupation = databaseFunctions.navbardict['occupation']
         inmate_details = (
             request.form['InmateID'],
             request.form['Fullname'],
@@ -54,6 +52,6 @@ def addInmate():
             flash('Inmate has been added successfully',category='success')
             databaseFunctions.insert_inmate(inmate_details)
             inmate_info = databaseFunctions.query_inmate_information()
-            return render_template('inmate.html', inmate_info = inmate_info)
+            return render_template('inmate.html', inmate_info = inmate_info, occupation = occupation)
         
-    return render_template('addInmate.html', FIRID = FIRID)
+    return render_template('addInmate.html', FIRID = FIRID, occupation = occupation)
