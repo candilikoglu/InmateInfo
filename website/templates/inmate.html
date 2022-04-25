@@ -1,19 +1,9 @@
-{% extends "base.html" %} {% block title %} Login {% endblock %}
+{% extends "base.html" %} {% block title %} Inmates {% endblock %}
 
 {%block navLink%} 
-{% if occupation == 'Admin' %}
-    <a class="nav-item nav-link" id="home" href="/home">Home</a>
-    <a class="nav-item nav-link" id="createUser" href="/createUser">Create User</a>
-    <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-{% elif occupation == 'Jailor'%}
-    <a class="nav-item nav-link" id="home" href="/home">Home</a>
-    <a class="nav-item nav-link" id="Inmate" href="/inmate">Inmates</a>
-    <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-{%elif occupation == 'Guard'%}
-    <a class="nav-item nav-link" id="home" href="/home">Home</a>
-    <a class="nav-item nav-link" id="Inmate" href="/inmate">Inmates</a>
-    <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-{% endif %}  
+<a class="nav-item nav-link" id="home" href="/home">Home</a>
+<a class="nav-item nav-link" id="Inmate" href="/inmate">Inmates</a>
+<a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
 {%endblock %}
 
 {% block content %}
@@ -34,7 +24,15 @@
         <tbody>
             {% for inmate in inmate_info %}
         <tr>
-            <th scope="row">{{inmate[0]}}</th>
+            <th scope="row">
+                {% if occupation == 'Jailor'%}
+                    <a role="nav-item nav-link"
+                    href= "{{ url_for('views.updateInmate', inmate_id=inmate[0]) }}">{{inmate[0]}}
+                </a>
+                {% else %}
+                    {{inmate[0]}}
+                {% endif %}  
+            </th>
             <td>{{inmate[1]}}</td>
             <td>{{inmate[2]}}</td>
             <td>{{inmate[3]}}</td>

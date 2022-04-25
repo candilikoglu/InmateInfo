@@ -2,7 +2,7 @@
 {%block navLink%} 
 {% if occupation == 'Admin' %}
     <a class="nav-item nav-link" id="home" href="/home">Home</a>
-    <a class="nav-item nav-link" id="createUser" href="/createUser">Create User</a>
+    <a class="nav-item nav-link" id="addJailor" href="/addJailor">Add Jailor</a>
     <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
 {% elif occupation == 'Jailor'%}
     <a class="nav-item nav-link" id="home" href="/home">Home</a>
@@ -10,7 +10,7 @@
     <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
 {%elif occupation == 'Guard'%}
     <a class="nav-item nav-link" id="home" href="/home">Home</a>
-    <a class="nav-item nav-link" id="Inmate" href="/inmate">Inmataaaaes</a>
+    <a class="nav-item nav-link" id="Inmate" href="/inmate">Inmates</a>
     <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
 {% endif %}
 {%endblock %}
