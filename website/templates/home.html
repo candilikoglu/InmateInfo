@@ -7,6 +7,7 @@
 {% elif occupation == 'Jailor'%}
     <a class="nav-item nav-link" id="home" href="/home">Home</a>
     <a class="nav-item nav-link" id="Inmate" href="/inmate">Inmates</a>
+    <a class="nav-item nav-link" id="Guard" href="/guard">Guards</a>
     <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
 {%elif occupation == 'Guard'%}
     <a class="nav-item nav-link" id="home" href="/home">Home</a>
@@ -14,3 +15,26 @@
     <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
 {% endif %}
 {%endblock %}
+
+{% block content%} 
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  .container {
+    padding: 50px;
+    background-color: #ffffff;
+  }
+</style>
+<h1 style = "color: white"><font size = "50px"><center> Inmate Info Incorporated</center></font></h1>
+  </head>
+  <body style="background-color: navy">
+  <center>  <img src = "https://thumbs.dreamstime.com/b/prisoner-inside-computer-cartoon-unknown-person-behind-bars-screen-33398916.jpg"
+     width = "300" height = "300">
+    <p style="color: black"><font size = "90px">
+    Cameron Payton
+    Can Dilikoglu
+    Elijah Higgs
+    Rayna Wynn</font></p>
+    </center>
+  </body>
+{% endblock %}

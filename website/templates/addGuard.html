@@ -1,0 +1,115 @@
+{% extends "base.html" %} {% block title %}Add Guard{% endblock %} 
+
+{%block navLink%} 
+<a class="nav-item nav-link" id="home" href="/home">Home</a>
+<a class="nav-item nav-link" id="Inmate" href="/inmate">Inmates</a>
+<a class="nav-item nav-link" id="Guard" href="/guard">Guard</a>
+<a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+{%endblock %}
+
+{% block content %} 
+<form method="POST" action="http://127.0.0.1:5000/addGuard">
+    <h3 align="center">Add Guard</h3>
+    <div class="form-group">
+        <label for="GuardId">GuardID</label>
+        <input
+        type="number"
+        class="form-control"
+        id="GuardID"
+        name="GuardID"
+        placeholder="Enter Guard ID"
+        />
+    </div>
+    <div class="form-group">
+        <label for="Fullname">Fullname</label>
+        <input
+        type="text"
+        class="form-control"
+        id="Fullname"
+        name="Fullname"
+        placeholder="Enter Fullname"
+        />
+    </div>
+    <div class="form-group">
+        <label for="Fullname">Username</label>
+        <input
+        type="text"
+        class="form-control"
+        id="Username"
+        name="Username"
+        placeholder="Enter Username"
+        />
+    </div>
+    <div class="form-group">
+        <label for="Fullname">Password</label>
+        <input
+        type="password"
+        class="form-control"
+        id="Password"
+        name="Password"
+        placeholder="Enter Password"
+        />
+    </div>
+    <div class="form-group">
+        <label for="Password2">Password (Confirm)</label>
+        <input
+        type="password"
+        class="form-control"
+        id="Password2"
+        name="Password2"
+        placeholder="Enter Password (Confirm)"
+        />
+    </div>
+    <div class="form-group">
+        <label for="DOB">Date of Birth</label>
+        <input
+        type="date"
+        class="form-control"
+        id="DOB"
+        name="DOB"
+        placeholder="Enter Date of Birth"
+        />
+    </div>
+    <div class="form-group">
+        <label for="Address">Address</label>
+        <input
+        type="text"
+        class="form-control"
+        id="Address"
+        name="Address"
+        placeholder="Enter Address"
+        />
+        </div>
+        <div class="form-group">
+        <label for="Sentence">Duty</label>
+        <input
+            type="text"
+            class="form-control"
+            id="Duty"
+            name="Duty"
+            placeholder="Enter Duty"
+        />
+        </div>
+        <div class="form-group">
+        <label for="Shift">Shift</label>
+        <input
+            type="text"
+            class="form-control"
+            id="Shift"
+            name="Shift"
+            placeholder="Enter Shift"
+        />
+        </div>
+        <div class="form-group">
+            <label for="Inmate">Inmate</label>
+            <select class="form-control" id="InmateID" name="InmateID" placeholder="Pick Inmates">
+                <option></option>
+                {% for InmateID in InmateID%}
+                <option>{{InmateID[0]}}</option>
+                {% endfor%}
+              </select>
+        </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endblock %}

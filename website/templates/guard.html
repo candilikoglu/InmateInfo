@@ -1,0 +1,50 @@
+{% extends "base.html" %} {% block title %} guards {% endblock %}
+
+{%block navLink%} 
+<a class="nav-item nav-link" id="home" href="/home">Home</a>
+<a class="nav-item nav-link" id="Inmate" href="/inmate">Inmates</a>
+<a class="nav-item nav-link" id="Guards" href="/guard">Guards</a>
+<a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+{%endblock %}
+
+{% block content %}
+<div class="container" style="margin-top:40px">
+    <h3 align="center">Guards</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Fullname</th>
+            <th scope="col">Date of Birth</th>
+            <th scope="col">Address</th>
+            <th scope="col">Duty</th>
+            <th scope="col">Shift</th>
+            <th scope="col">Inmates</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for guard in guard_info %}
+        <tr>
+            <th scope="row">
+                <a role="nav-item nav-link"
+                href= "{{ url_for('views.updateGuard', guard_id=guard[0]) }}">{{guard[0]}}
+                </a>
+              
+            </th>
+            <td>{{guard[1]}}</td>
+            <td>{{guard[2]}}</td>
+            <td>{{guard[3]}}</td>
+            <td>{{guard[4]}}</td>
+            <td>{{guard[5]}}</td>
+            <td>{{guard[6]}}</td>
+        </tr>
+        {%endfor%}
+        </tbody>
+    </table>
+  </div>
+  <div style="text-align:center; padding-top:40px">
+    {% if occupation == 'Jailor' %}
+        <a class="btn btn-primary" href="/addGuard" role="button">Add guard</a>
+    {% endif %}
+  </div>
+{% endblock %}
