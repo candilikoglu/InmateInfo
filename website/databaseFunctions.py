@@ -13,6 +13,13 @@ def query_inmate_information():
     inmate_info = c.fetchall()
     return inmate_info
 
+def query_guard_information():
+    connie = sqlite3.connect(db_path)
+    c = connie.cursor()
+    c.execute('SELECT * FROM Guard')
+    guard_info = c.fetchall()
+    return guard_info
+
 def get_FIRID():
     connie = sqlite3.connect(db_path)
     c = connie.cursor()
@@ -36,6 +43,18 @@ def insert_inmate(inmate_details):
             VALUES (?,?,?,?,?,?,?)
             ''')
     c.execute(sql_execute_string, inmate_details)
+    connie.commit()
+    connie.close()
+    
+def insert_guard(guard_details):
+    connie = sqlite3.connect(db_path)
+    c = connie.cursor()
+    sql_execute_string = ('''
+            INSERT INTO Guard
+            (GuardID, Fullname, DOB, Address, Duty, Shift, InmateID, Username, Password)
+            VALUES (?,?,?,?,?,?,?,?,?)
+            ''')
+    c.execute(sql_execute_string, guard_details)
     connie.commit()
     connie.close()
     
