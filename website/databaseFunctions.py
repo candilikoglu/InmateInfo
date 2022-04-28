@@ -34,6 +34,13 @@ def get_InmateID():
     InmateID = c.fetchall()
     return InmateID
 
+def get_GuardID():
+    connie = sqlite3.connect(db_path)
+    c = connie.cursor()
+    c.execute('SELECT GuardID FROM Guard')
+    GuardID = c.fetchall()
+    return GuardID
+
 def insert_inmate(inmate_details):
     connie = sqlite3.connect(db_path)
     c = connie.cursor()
@@ -102,6 +109,13 @@ def get_inmate_information_with_ID(ID):
     inmate_info = c.fetchall()
     return inmate_info
 
+def get_guard_information_with_ID(ID):
+    connie = sqlite3.connect(db_path)
+    c = connie.cursor()
+    c.execute("SELECT * FROM Guard WHERE GuardID="+ID+"")
+    inmate_info = c.fetchall()
+    return inmate_info
+
 def update_inmate_information(inmate_info):
     connie = sqlite3.connect(db_path)
     c = connie.cursor()
@@ -112,5 +126,12 @@ def delete_inmate(ID):
     connie = sqlite3.connect(db_path)
     c = connie.cursor()
     c.execute("DELETE FROM Inmate WHERE InmateID=?",(ID))
+    connie.commit()
+    connie.close()
+    
+def delete_guard(ID):
+    connie = sqlite3.connect(db_path)
+    c = connie.cursor()
+    c.execute("DELETE FROM Guard WHERE GuardID="+ID+"")
     connie.commit()
     connie.close()
