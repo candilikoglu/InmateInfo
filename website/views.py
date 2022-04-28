@@ -26,9 +26,10 @@ def goToGuard():
 
 @views.route('/addGuard', methods=['POST', 'GET'])
 def addGuard():
-    InmateID = databaseFunctions.get_InmateID()
-    occupation = databaseFunctions.navbardict['occupation']
+    
     if request.method == 'GET':
+        InmateID = databaseFunctions.get_InmateID()
+        occupation = databaseFunctions.navbardict['occupation']
         return render_template('addGuard.html', InmateID = InmateID, occupation=occupation)
     else:
         guard_details = (
@@ -38,7 +39,7 @@ def addGuard():
             request.form.get('Address'),
             request.form.get('Duty'),
             request.form.get('Shift'),
-            request.form.getlist('InmateID'),
+            request.form.get('Inmates'),
             request.form.get('Username'),
             request.form.get('Password')
         )
@@ -61,10 +62,11 @@ def addGuard():
             flash('Guard is added successfully', category='success')
             databaseFunctions.insert_guard(guard_details)
             guard_info = databaseFunctions.query_guard_information()
+            occupation = databaseFunctions.navbardict['occupation']
             return render_template('guard.html', guard_info = guard_info, occupation=occupation)
-            
     
-    return render_template('addGuard.html', InmateID = InmateID, occupation = occupation)
+    occupation = databaseFunctions.navbardict['occupation'] 
+    return render_template('addGuard.html', occupation = occupation, InmateID = InmateID)
             
             
             
@@ -152,7 +154,7 @@ def addJailor():
             
         
     occupation = databaseFunctions.navbardict['occupation']       
-    return render_template('addJailor.html', occupation=occupation)
+    return render_template('addJailor.html', occupation=occupation, InmateID = InmateID, FIRID = FIRID)
 
 @views.route('/updateInmate/<int:inmate_id>', methods=['POST', 'GET'])
 def updateInmate(inmate_id):
