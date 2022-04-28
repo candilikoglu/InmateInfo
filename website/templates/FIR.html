@@ -1,0 +1,52 @@
+{% extends "base.html" %} {% block title %} FIRs {% endblock %}
+{% block navLink%}
+<a class="nav-item nav-link" id="home" href="/home">Home</a>
+<a class="nav-item nav-link" id="Inmate" href="/inmate">Inmates</a>
+<a class="nav-item nav-link" id="Guard" href="/guard">Guards</a>
+<a class="nav-item nav-link" id="FIR" href="/FIR">FIRs</a>
+<a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+{% endblock %}
+
+{% block content %}
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap" rel="stylesheet">
+<!-- Bootstrap CSS -->
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
+<!-- Font Awesome CSS -->
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css'>
+<style>
+body {
+    background-color: #FFFFFF;  /* fallback for old browsers */
+    font-family: 'Lato', sans-serif;
+}
+
+col-lg-8 {
+    
+}
+</style>
+  {% for FIR in FIR%}
+  <div class="container">
+      <div class="col-lg-8" >
+        <div style="height: 26px" ></div>
+        <div class="card shadow-sm" >
+          <div class="card-header bg-transparent border-0">
+            <h3 class="mb-0"><i class="far fa-clone pr-1"></i>{{FIR[1]}}</h3>
+          </div>
+          <div class="card-body pt-0" style="align:left">
+              <h4>FIR ID: {{FIR[0]}}</h4>
+              <h5>Inmate Name: {{FIR[7]}} -- Inmate ID: {{FIR[6]}}</h5>
+              <p>Description: {{FIR[2]}}</p>
+              <p>Date: {{FIR[3]}}  Time: {{FIR[4]}}</p>
+          </div>
+        </div>
+      </div>
+  </div>
+  {%endfor %}
+
+<div style="text-align:center; padding-top:40px">
+    {% if occupation == 'Jailor' %}
+        <a class="btn btn-primary" href="/writeFIR" role="button">Write FIR</a>
+    {% endif %}
+  </div>
+{%endblock %}

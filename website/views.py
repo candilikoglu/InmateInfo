@@ -11,7 +11,6 @@ def home():
     occupation = databaseFunctions.navbardict['occupation'] 
     return render_template('home.html', occupation = occupation)
 
-
 @views.route('/inmate', methods=['POST', 'GET'])
 def goToInmate():
     inmate_info = databaseFunctions.query_inmate_information()
@@ -67,9 +66,7 @@ def addGuard():
     
     occupation = databaseFunctions.navbardict['occupation'] 
     return render_template('addGuard.html', occupation = occupation, InmateID = InmateID)
-            
-            
-            
+                    
 @views.route('/updateGuard/<int:guard_id>', methods=['POST', 'GET'])
 def updateGuard(guard_id):
     occupation = databaseFunctions.navbardict['occupation']
@@ -218,5 +215,44 @@ def updateInmate(inmate_id):
             inmate_info = databaseFunctions.query_inmate_information()
             return render_template('inmate.html', inmate_info = inmate_info, occupation = occupation)
         
+@views.route('/FIR')
+def goToFIR():
+    FIR = databaseFunctions.query_FIR_information()
+    print(FIR)
+    occupation = databaseFunctions.navbardict['occupation']
+    return render_template('FIR.html', occupation = occupation, FIR = FIR)
 
+@views.route('/writeFIR', methods=['POST', 'GET'])
+def writeFIR():
+    occupation = databaseFunctions.navbardict['occupation']
+    inmate_id = databaseFunctions.get_InmateID()
+    if request.method == 'GET':    
+        return render_template('writeFIR.html', occupation = occupation, inmate_id = inmate_id)
+    else:
+        
+        fir_details = (
+            request.form.get('FIRID'),
+            request.form.get('FIRNAME'),
+            request.form.get('Description'),
+            request.form.get('Date'),
+            request.form.get('Time'),
+            request.form.get('InmateID')
+        )
+        
+        print(fir_details)
+        
+        if len(fir_details[1]) <= 0:
+            flash('FIR name can not be empty', category='error')
+        elif len(fir_details[0]) <= 0:
+            flash('FIR ID can not be empty', category='error')
+        elif databaseFunctions.check_if_ID_exists(fir_details[0], 'FIR', 'FIRID'):
+            flash('FIR with this ID exists', category='error')
+        else:
+            
+            flash('FIR has been added successfully', category='success')
+            databaseFunctions.insert_fir(fir_details)
+            FIR = databaseFunctions.query_FIR_information()
+            return render_template('FIR.html', FIR = FIR, occupation = occupation)
+    
+    return render_template('writeFIR.html', occupation = occupation, inmate_id = inmate_id)
     
