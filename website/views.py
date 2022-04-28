@@ -51,13 +51,13 @@ def addGuard():
         elif databaseFunctions.check_if_ID_exists(guard_details[0], 'Guard', 'GuardID'):
             flash('Guard ID already exists', category='error')
         elif len(guard_details[1]) <= 0:
-            flash('Fullname can not be empty',category='error'),
+            flash('Fullname can not be empty',category='error')
         elif len(guard_details[7]) <=0:
-            flash('Username can not be empty', category='error'),
+            flash('Username can not be empty', category='error')
         elif len(guard_details[8]) <=0:
-            flash('Password can not be empty', category='error'),
+            flash('Password can not be empty', category='error')
         elif password2 != guard_details[8]:
-            flash('Passwords do not match', category='error'),
+            flash('Passwords do not match', category='error')
         else:
             flash('Guard is added successfully', category='success')
             databaseFunctions.insert_guard(guard_details)
@@ -72,8 +72,40 @@ def addGuard():
             
 @views.route('/updateGuard/<int:guard_id>', methods=['POST', 'GET'])
 def updateGuard(guard_id):
-    print('update guard')
-    return render_template('updateGuard.html')
+    occupation = databaseFunctions.navbardict['occupation']
+    guard_info = databaseFunctions.get_guard_information_with_ID(str(guard_id))
+    InmateID = databaseFunctions.get_InmateID()
+    
+    if request.method == 'GET':
+        return render_template('updateGuard.html', guard_info=guard_info, InmateID=InmateID, occupation = occupation)
+    else:
+        guard_details = (
+            request.form.get('GuardID'),
+            request.form.get('Fullname'),
+            request.form.get('DOB'),
+            request.form.get('Address'),
+            request.form.get('Duty'),
+            request.form.get('Shift'),
+            request.form.get('Inmates'),
+            request.form.get('Username'),
+            request.form.get('Password')
+        )
+        
+        password2 = request.form.get('Password2')
+        
+        if len(guard_details[7]) <=0:
+            flash('Username can not be empty', category='error')
+        elif len(guard_details[8]) <=0:
+            flash('Password can not be empty', category='error')
+        elif password2 != guard_details[8]:
+            flash('Passwords do not match', category='error')
+        else:
+            flash('Guard information has been successfully changed', category='success')
+            databaseFunctions.delete_guard(str(guard_id))
+            databaseFunctions.insert_guard(guard_details)
+            guard_info = databaseFunctions.query_guard_information()
+            occupation = databaseFunctions.navbardict['occupation']
+            return render_template('guard.html', guard_info = guard_info, occupation=occupation)
 
 @views.route('/addInmate', methods=['POST', 'GET'])
 def addInmate():
@@ -163,7 +195,7 @@ def updateInmate(inmate_id):
     occupation = databaseFunctions.navbardict['occupation']
     
     if request.method == 'GET':
-        return render_template('updateInmate.html', inmate_info = inmate_info, FIRID=FIRID)
+        return render_template('updateInmate.html', inmate_info = inmate_info, FIRID=FIRID, occupation= occupation)
     else:
         inmate_details = (
             request.form.get('InmateID'),
