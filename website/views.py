@@ -255,4 +255,8 @@ def writeFIR():
             return render_template('FIR.html', FIR = FIR, occupation = occupation)
     
     return render_template('writeFIR.html', occupation = occupation, inmate_id = inmate_id)
-    
+
+@views.route('/complaint')
+def goToComplaint():
+    complaint = databaseFunctions.query_complaint_information()
+    return render_template('complaint.html', complaint = complaint)

@@ -1,4 +1,13 @@
-
+{% extends "base.html" %} {% block title %} Complaints {% endblock %}
+{% block navLink%}
+<a class="nav-item nav-link" id="home" href="/home">Home</a>
+<a class="nav-item nav-link" id="Inmate" href="/inmate">Inmate</a>
+<a class="nav-item nav-link" id="Guard" href="/guard">Guard</a>
+<a class="nav-item nav-link" id="FIR" href="/FIR">FIR</a>
+<a class="nav-item nav-link" id="Complaint" href="/complaint">Complaint</a>
+<a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+{%endblock %}
+{% block content%}
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&\display=swap" rel="stylesheet">
 <!-- Bootstrap CSS -->
@@ -7,58 +16,64 @@
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css'>
 <style>
 body {
-    background-color: #000080;  /* fallback for old browsers */
+    background-color: #FFFFF;  /* fallback for old browsers */
     font-family: 'Lato', sans-serif;
 }
 </style>
+{% for complaint in complaint%}
 <div class="Inmate-profile py-4">
   <div class="container">
     <div class="row">
       <div class="col-lg-4">
         <div class="card shadow-sm">
-          <div class="card-header bg-transparent text-center">          
-            <h3>Complaints</h3>
+          <div class="card-header bg-transparent border-0" style="height:50px">
+            <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Complaint</h3>
           </div>
-          <div class="card-body">
-            <p class="mb-0"><strong class="pr-1">Police ID: </strong>321000001</p>
-            <p class="mb-0"><strong class="pr-1">Officer Name: </strong>Ricky Kinglsey</p>
-            <p class="mb-0"><strong class="pr-1">Station:</strong>5621</p>
+          <div class="card-body pt-0">
+              <p>Complaint ID: {{complaint[2]}}</p>
+              <p>Inmate ID: {{complaint[10]}}</p>
+              <p>Details: {{complaint[8]}}</p>
+              <p>Post Mortem: {{complaint[3]}}</p>
+              <p>Date: {{complaint[6]}} Time: {{complaint[7]}}</p>
+              <p>Place: {{complaint[9]}}</p>
           </div>
         </div>
       </div>
-      <div class="col-lg-8">
-        <div class="card shadow-sm">
-          <div class="card-header bg-transparent border-0">
+      <div class="col-lg-8" style="width:60px" >
+        <div class="card shadow-sm" >
+          <div class="card-header bg-transparent border-0" >
             <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Case Information</h3>
           </div>
           <div class="card-body pt-0">
             <table class="table table-bordered">
               <tr>
-                <th width="30%">Post-mordem</th>
+                <th width="20%">Case ID </th>
                 <td width="2%">:</td>
-                <td>2 bodies</td>
+                <td>{{complaint[0]}}</td>
               </tr>
               <tr>
-                <th width="30%">Case ID </th>
+                <th width="20%">Police ID</th>
                 <td width="2%">:</td>
-                <td>1654</td>
+                <td>{{complaint[1]}}</td>
               </tr>
-
+              <tr>
+                <th width="20%">Police Name</th>
+                <td width="2%">:</td>
+                <td>{{complaint[4]}}</td>
+              </tr>
+              <tr>
+                <th width="20%">Police Station</th>
+                <td width="2%">:</td>
+                <td>{{complaint[5]}}</td>
+              </tr>
             </table>
           </div>
         </div>
           <div style="height: 26px"></div>
-        <div class="card shadow-sm">
-          <div class="card-header bg-transparent border-0">
-            <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Complaint</h3>
-          </div>
-          <div class="card-body pt-0">
-              <p>Complaint ID: 498265</p>
-              <p>Case ID: 57715</p>
-              <p>Details: Suspect was found next to two dead bodies. Was very agrressive and uncooperative with a very high blood alcohol level.<p>
-          </div>
-        </div>
+        
       </div>
     </div>
   </div>
 </div>
+{% endfor %}
+{% endblock %}
