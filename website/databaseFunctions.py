@@ -25,7 +25,11 @@ def query_guard_information():
 def query_FIR_information():
     connie = sqlite3.connect(db_path)
     c = connie.cursor()
-    c.execute('SELECT * FROM FIR INNER JOIN Inmate ON FIR.InmateID = Inmate.InmateID')
+    c.execute('''
+            SELECT FIR.FIRID, FIR.Name, FIR.Description, FIR.Date,
+            FIR.Time, Inmate.InmateID, Inmate.Fullname FROM FIR INNER JOIN
+            Inmate ON Inmate.FIRID = FIR.FIRID ORDER BY Inmate.FIRID
+            ''')
     FIR = c.fetchall()
     connie.close()
     return FIR
