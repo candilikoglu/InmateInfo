@@ -30,6 +30,20 @@ def query_FIR_information():
     connie.close()
     return FIR
 
+def query_complaint_information():
+    connie = sqlite3.connect(db_path)
+    c = connie.cursor()
+    c.execute('''
+            select Cases.CaseID, Cases.PoliceID, Cases.ComplaintID, Cases.Postmortem,
+            Police.Fullname, Police.Station, Complaint.Date, Complaint.Time,
+            Complaint.Description, Complaint.Place, Complaint.InmateID 
+            from Cases inner join Police on Police.PoliceID = Cases.PoliceID
+            inner join Complaint on Complaint.ComplaintID = Cases.ComplaintID
+            ''')
+    Complaint = c.fetchall()
+    connie.close()
+    return Complaint
+
 def get_FIRID():
     connie = sqlite3.connect(db_path)
     c = connie.cursor()

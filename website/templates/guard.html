@@ -3,8 +3,9 @@
 {%block navLink%} 
 <a class="nav-item nav-link" id="home" href="/home">Home</a>
 <a class="nav-item nav-link" id="Inmate" href="/inmate">Inmates</a>
-<a class="nav-item nav-link" id="Guards" href="/guard">Guards</a>
-<a class="nav-item nav-link" id="FIR" href="/FIR">FIRs</a>
+<a class="nav-item nav-link" id="Guards" href="/guard">Guard</a>
+<a class="nav-item nav-link" id="FIR" href="/FIR">FIR</a>
+<a class="nav-item nav-link" id="Complaint" href="/complaint">Complaint</a>
 <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
 {%endblock %}
 
@@ -27,9 +28,13 @@
             {% for guard in guard_info %}
         <tr>
             <th scope="row">
+                {% if occupation == 'Jailor'%}
                 <a role="nav-item nav-link"
                 href= "{{ url_for('views.updateGuard', guard_id=guard[0]) }}">{{guard[0]}}
                 </a>
+                {% else %}
+                {{guard[0]}}
+                {% endif %}
               
             </th>
             <td>{{guard[1]}}</td>

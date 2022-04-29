@@ -4,16 +4,12 @@
     <a class="nav-item nav-link" id="home" href="/home">Home</a>
     <a class="nav-item nav-link" id="addJailor" href="/addJailor">Add Jailor</a>
     <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-{% elif occupation == 'Jailor'%}
+{% else %}
     <a class="nav-item nav-link" id="home" href="/home">Home</a>
-    <a class="nav-item nav-link" id="Inmate" href="/inmate">Inmates</a>
-    <a class="nav-item nav-link" id="Guard" href="/guard">Guards</a>
-    <a class="nav-item nav-link" id="FIR" href="/FIR">FIRs</a>
-    <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-{%elif occupation == 'Guard'%}
-    <a class="nav-item nav-link" id="home" href="/home">Home</a>
-    <a class="nav-item nav-link" id="Inmate" href="/inmate">Inmates</a>
-    <a class="nav-item nav-link" id="FIR" href="/FIR">FIRs</a>
+    <a class="nav-item nav-link" id="Inmate" href="/inmate">Inmate</a>
+    <a class="nav-item nav-link" id="Guard" href="/guard">Guard</a>
+    <a class="nav-item nav-link" id="FIR" href="/FIR">FIR</a>
+    <a class="nav-item nav-link" id="Complaint" href="/complaint">Complaint</a>
     <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
 {% endif %}
 {%endblock %}
