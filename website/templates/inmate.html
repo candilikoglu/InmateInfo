@@ -1,12 +1,18 @@
 {% extends "base.html" %} {% block title %} Inmates {% endblock %}
 
-{%block navLink%} 
+{%block navLink%}
+{% if occupation == 'Jailor'%} 
 <a class="nav-item nav-link" id="home" href="/home">Home</a>
 <a class="nav-item nav-link" id="Inmate" href="/inmate">Inmate</a>
 <a class="nav-item nav-link" id="Guard" href="/guard">Guard</a>
 <a class="nav-item nav-link" id="FIR" href="/FIR">FIR</a>
 <a class="nav-item nav-link" id="Complaint" href="/complaint">Complaint</a>
 <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+{% else %}
+<a class="nav-item nav-link" id="home" href="/home">Home</a>
+<a class="nav-item nav-link" id="Inmate" href="/inmate">Inmate</a>
+<a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+{% endif %}
 {%endblock %}
 
 {% block content %}

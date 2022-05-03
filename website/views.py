@@ -156,9 +156,9 @@ def addJailor():
             request.form.get('JailorID'),
             request.form.get('Fullname'),
             request.form.get('Address'),
-            request.form.get('Shift'),
-            request.form.get('Inmates'),
-            request.form.get('FIR'),
+            "",
+            "",
+            "",
             request.form.get('Username'),
             request.form.get('password1'),            
         )       
