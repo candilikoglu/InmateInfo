@@ -35,16 +35,8 @@
         <h4 style="margin-top:20px">FIR ID: <input type="number"
             name="FIRID" id="FIRID" class="mb-0" placeholder="Enter FIR ID"></input> </h4>
             
-        <div class="a">
-        <h6 class="inputarea">Inmate ID:</h6>
-        </div> 
-        <div class="a">
-            <select class="inputarea" style="display:inline-block" id="InmateID" name="InmateID">
-                {% for inmate_id in inmate_id%}
-                    <option>{{inmate_id[0]}}</option>
-                {% endfor%}
-            </select>
-        </div> 
+        
+        
             
         <p style="margin-top:20px">Description: <textarea style="height:30px"name="Description" id="Description" class="mb-0"
             placeholder="Describe the incident"></textarea></p>
