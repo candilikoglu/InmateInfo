@@ -235,8 +235,7 @@ def writeFIR():
             request.form.get('FIRNAME'),
             request.form.get('Description'),
             request.form.get('Date'),
-            request.form.get('Time'),
-            request.form.get('InmateID')
+            request.form.get('Time')
         )
         
         print(fir_details)

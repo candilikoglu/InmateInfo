@@ -113,8 +113,8 @@ def insert_fir(fir_details):
     c = connie.cursor()
     sql_execute_string = ('''
             INSERT INTO FIR
-            (FIRID, Name, Description, Date, Time, InmateID)
-            VALUES (?,?,?,?,?,?)
+            (FIRID, Name, Description, Date, Time)
+            VALUES (?,?,?,?,?)
             ''')
     c.execute(sql_execute_string, fir_details)
     connie.commit()
@@ -152,7 +152,7 @@ def check_if_user_exists(table, username, password):
 def get_inmate_information_with_ID(ID):
     connie = sqlite3.connect(db_path)
     c = connie.cursor()
-    c.execute("SELECT * FROM Inmate WHERE InmateID=?", (ID))
+    c.execute("SELECT * FROM Inmate WHERE InmateID=?", (ID,))
     inmate_info = c.fetchall()
     connie.close()
     return inmate_info
@@ -174,7 +174,7 @@ def update_inmate_information(inmate_info):
 def delete_inmate(ID):
     connie = sqlite3.connect(db_path)
     c = connie.cursor()
-    c.execute("DELETE FROM Inmate WHERE InmateID=?",(ID))
+    c.execute("DELETE FROM Inmate WHERE InmateID=?",(ID,))
     connie.commit()
     connie.close()
     
